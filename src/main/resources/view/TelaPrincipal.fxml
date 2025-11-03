@@ -11,7 +11,7 @@
    <top>
       <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="botãoAdicionarProduto" layoutX="50.0" mnemonicParsing="false" onAction="#handleAdicionarProduro" text="Adicionar Produto" />
+            <Button fx:id="botãoAdicionarProduto" layoutX="50.0" mnemonicParsing="false" onAction="#handleAdicionarProduto" text="Adicionar Produto" />
          </children>
       </HBox>
    </top>

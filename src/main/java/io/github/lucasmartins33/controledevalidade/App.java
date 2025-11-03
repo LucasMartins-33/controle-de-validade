@@ -11,7 +11,7 @@ public class App extends Application{
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/TelaPrincipal.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/view/TelaPrincipal.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setTitle("Controle de Validade de Produtos");
         stage.setScene(scene);
