@@ -10,6 +10,10 @@ import java.sql.Statement;
 // Importa o nosso Molde
 import io.github.lucasmartins33.controledevalidade.model.Produto;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.ResultSet; // Importante para ler os resultados
+
 public class ProdutoDAO {
     // 1. Onde vamos guardar o nosso ficheiro de banco de dados?
     // "jdbc:sqlite:" é o comando, e "controle_validade.db" será o nome do ficheiro.
@@ -60,4 +64,40 @@ public class ProdutoDAO {
             System.err.println("Erro ao salvar produto: " + e.getMessage());
         }
     }
+
+    // 5. O método para ler todos os produtos!
+    public  List<Produto> listarTodos() {
+        // 1. O comando SQL para selecionar tudo
+        String sql = "SELECT id, nome FROM produtos";
+
+        // 2. Criamos uma lista vazia onde vamos colocar os produtos
+        List<Produto> produtosEncontrados = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement();
+             // 3. O ResultSet é a "tabela de resultados" que a BD nos devolve
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            // 4. Loop "enquanto houver uma próxima linha" na tabela de resultados
+            while (rs.next()) {
+
+                // 5. Criamos um novo Molde (Produto) vazio
+                Produto produto = new Produto();
+
+                // 6. Preenchemos o molde com os dados da linha atual
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+
+                // 7. Adicionamos o produto preenchido à nossa lista
+                produtosEncontrados.add(produto);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar produtos: " + e.getMessage());
+        }
+
+        // 8. Devolvemos a lista completa (pode estar vazia se não houver produtos)
+        return produtosEncontrados;
+    }
+
 }
