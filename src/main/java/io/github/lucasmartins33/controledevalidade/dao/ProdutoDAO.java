@@ -28,7 +28,7 @@ public class ProdutoDAO {
     // 3. Método para criar a tabela (só se ela não existir)
     private void criarTabelaSeNaoExistir() {
         // Este é o "mapa" da nossa tabela de produtos
-        String sql = "CREATE TSBLE IF NOT EXISTS produtos ("
+        String sql = "CREATE TABLE IF NOT EXISTS produtos ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT," // Um ID automático
                 + "nome TEXT NOT NULL" // O nome do produto
                 + ");";
