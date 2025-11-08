@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import io.github.lucasmartins33.controledevalidade.model.Produto;
 import io.github.lucasmartins33.controledevalidade.dao.ProdutoDAO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javafx.scene.control.TableView;
@@ -17,6 +18,8 @@ import javafx.collections.FXCollections; // Para criar a ObservableList
 import javafx.beans.property.SimpleStringProperty; // Para configurar as colunas
 import javafx.beans.property.SimpleIntegerProperty; // Para configurar a coluna de ID
 
+import javafx.scene.control.DatePicker; //Para a data de validade
+
 public class TelaPrincipalController {
 
     @FXML
@@ -24,6 +27,12 @@ public class TelaPrincipalController {
 
     @FXML
     private TextField campoNomeProduto;
+
+    @FXML
+    private TextField campoCodigoBarras;
+
+    @FXML
+    private DatePicker campoDataValidade;
 
     @FXML
     private TableView<Produto> tabelaProdutos;
@@ -103,10 +112,20 @@ public class TelaPrincipalController {
         try {
             // 1. Pegar o texto da tela
             String nomeDoProduto = campoNomeProduto.getText();
+            String codigoBarras = campoCodigoBarras.getText();
+            LocalDate dataValidade = campoDataValidade.getValue();
+
+            // Não deixamos salvar se os campos principais estiverem vazios
+            if (nomeDoProduto.isEmpty() || dataValidade == null) {
+                labelDeStatus.setText("Erro: Nome e Data de validade são obrigatórios");
+                return;
+            }
 
             // 2. Criar um "Molde" (Produto) e colocar o nome dentro
             Produto produtoParaSalvar = new Produto();
             produtoParaSalvar.setNome(nomeDoProduto);
+            produtoParaSalvar.setCodigoBarras(codigoBarras);
+            produtoParaSalvar.setDataValidade(dataValidade);
 
             // 3. Criar um "Mensageiro" (DAO)
             ProdutoDAO meuDAO = new ProdutoDAO();
