@@ -18,7 +18,9 @@
       <TableView fx:id="tabelaProdutos" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="colunaId" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="colunaNome" prefWidth="75.0" text="Nome do Produto" />
+          <TableColumn fx:id="colunaNome" prefWidth="171.0" text="Nome do Produto" />
+            <TableColumn fx:id="colunaCodigoBarras" prefWidth="192.0" text="Código de Barras" />
+            <TableColumn fx:id="colunaDataValidade" prefWidth="159.0" text="Data de Validade" />
         </columns>
       </TableView>
    </children>

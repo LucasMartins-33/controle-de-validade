@@ -2,8 +2,7 @@ package io.github.lucasmartins33.controledevalidade.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import io.github.lucasmartins33.controledevalidade.model.Produto;
 import io.github.lucasmartins33.controledevalidade.dao.ProdutoDAO;
@@ -11,14 +10,13 @@ import io.github.lucasmartins33.controledevalidade.dao.ProdutoDAO;
 import java.time.LocalDate;
 import java.util.List;
 
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
 import javafx.collections.ObservableList; // Para a lista da tabela
 import javafx.collections.FXCollections; // Para criar a ObservableList
 import javafx.beans.property.SimpleStringProperty; // Para configurar as colunas
 import javafx.beans.property.SimpleIntegerProperty; // Para configurar a coluna de ID
 
-import javafx.scene.control.DatePicker; //Para a data de validade
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class TelaPrincipalController {
 
@@ -43,12 +41,22 @@ public class TelaPrincipalController {
     @FXML
     private TableColumn<Produto, String> colunaNome;
 
+    @FXML
+    private TableColumn<Produto, String> colunaCodigoBarras;
+
+    @FXML
+    private TableColumn<Produto, LocalDate> colunaDataValidade;
+
     /**
      * Este é um método especial do JavaFX.
      * Ele é chamado AUTOMATICAMENTE, uma única vez,
      * logo depois de o FXML ser carregado (antes de a janela aparecer).
      * É o local perfeito para carregar dados iniciais!
      */
+
+    // Criando um formatador de tabela
+    private final DateTimeFormatter formatadorDeData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     @FXML
     public void initialize() {
         // 1. Configurar a Coluna de ID:
@@ -63,7 +71,30 @@ public class TelaPrincipalController {
                 new SimpleStringProperty(cellData.getValue().getNome())
         );
 
-        // 3. Chamar o nosso novo método para carregar os dados
+        // 3. Configurar Coluna de Código de Barras
+        colunaCodigoBarras.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getCodigoBarras())
+        );
+
+        // 4. Configurar Coluna de Data de Validade (com formatação)
+        colunaDataValidade.setCellValueFactory(cellData ->
+                cellData.getValue().dataValidadeProperty()
+        );
+
+        // Esta parte é um pouco mais avançada, mas faz a data parecer "dd/MM/yyyy"
+        colunaDataValidade.setCellFactory(col -> new TableCell<Produto, LocalDate>() {
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(formatadorDeData.format(item));
+                }
+            }
+        });
+
+        // 5. Chamar o nosso novo método para carregar os dados
         carregarProdutosNaTabela();
     }
 
