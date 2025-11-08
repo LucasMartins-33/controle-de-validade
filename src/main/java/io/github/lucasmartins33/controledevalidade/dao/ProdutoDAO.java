@@ -30,7 +30,9 @@ public class ProdutoDAO {
         // Este é o "mapa" da nossa tabela de produtos
         String sql = "CREATE TABLE IF NOT EXISTS produtos ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT," // Um ID automático
-                + "nome TEXT NOT NULL" // O nome do produto
+                + "nome TEXT NOT NULL," // O nome do produto
+                + "codigoBarras TEXT," // Coluna para o código de barras
+                + "dataValidade TEXT NOT NULL" // Coluna para a data (como texto)
                 + ");";
 
         // O "try-with-resources" garante que a ligação à BD fecha sozinha
