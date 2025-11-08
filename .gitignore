@@ -37,3 +37,12 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Pasta de Build do Maven
+/target/
+
+# Arquivos do IntelliJ IDEA
+.idea/
+*.iml
+
+*.db
