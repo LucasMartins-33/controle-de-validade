@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import io.github.lucasmartins33.controledevalidade.model.Produto;
 import io.github.lucasmartins33.controledevalidade.dao.ProdutoDAO;
 
+import java.util.List;
+
 public class TelaPrincipalController {
 
     @FXML
@@ -15,6 +17,32 @@ public class TelaPrincipalController {
 
     @FXML
     private TextField campoNomeProduto;
+
+    /**
+     * Este é um método especial do JavaFX.
+     * Ele é chamado AUTOMATICAMENTE, uma única vez,
+     * logo depois de o FXML ser carregado (antes de a janela aparecer).
+     * É o local perfeito para carregar dados iniciais!
+     */
+    @FXML
+    public void initialize() {
+        System.out.println("O Controller foi inicializado! A carregar produtos...");
+
+        // 1. Criar um Mensageiro (DAO)
+        ProdutoDAO meuDAO = new ProdutoDAO();
+
+        // 2. Pedir ao Mensageiro a lista de todos os produtos guardados
+        List<Produto> produtosSalvos = meuDAO.listarTodos();
+
+        // 3. Imprimir os resultados no console
+        System.out.println("--- PRODUTOS ENCONTRADOS NA BASE DE DADOS ---");
+
+        // 4. Fazer um loop pela lista e imprimir cada produto
+        for (Produto p : produtosSalvos) {
+            System.out.println(p);
+        }
+    }
+
 
     /**
      * Esta anotação @FXML é o que permite que o FXML
