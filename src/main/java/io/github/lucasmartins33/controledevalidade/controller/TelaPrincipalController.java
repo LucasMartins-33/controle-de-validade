@@ -10,6 +10,13 @@ import io.github.lucasmartins33.controledevalidade.dao.ProdutoDAO;
 
 import java.util.List;
 
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.collections.ObservableList; // Para a lista da tabela
+import javafx.collections.FXCollections; // Para criar a ObservableList
+import javafx.beans.property.SimpleStringProperty; // Para configurar as colunas
+import javafx.beans.property.SimpleIntegerProperty; // Para configurar a coluna de ID
+
 public class TelaPrincipalController {
 
     @FXML
@@ -17,6 +24,15 @@ public class TelaPrincipalController {
 
     @FXML
     private TextField campoNomeProduto;
+
+    @FXML
+    private TableView<Produto> tabelaProdutos;
+
+    @FXML
+    private TableColumn<Produto, Integer> colunaId;
+
+    @FXML
+    private TableColumn<Produto, String> colunaNome;
 
     /**
      * Este é um método especial do JavaFX.
@@ -26,21 +42,39 @@ public class TelaPrincipalController {
      */
     @FXML
     public void initialize() {
-        System.out.println("O Controller foi inicializado! A carregar produtos...");
+        // 1. Configurar a Coluna de ID:
+        // Diz à "colunaId" que ela deve buscar o atributo "id" do Produto.
+        colunaId.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getId()).asObject()
+        );
+
+        // 2. Configurar a Coluna de Nome:
+        // Diz à "colunaNome" que ela deve buscar o atributo "nome" do Produto.
+        colunaNome.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getNome())
+        );
+
+        // 3. Chamar o nosso novo método para carregar os dados
+        carregarProdutosNaTabela();
+    }
+
+    public void carregarProdutosNaTabela() {
+        System.out.println("Carregando produtos na tabela...");
 
         // 1. Criar um Mensageiro (DAO)
         ProdutoDAO meuDAO = new ProdutoDAO();
 
-        // 2. Pedir ao Mensageiro a lista de todos os produtos guardados
+        // 2. Pedir ao Mensageiro a lista de todos os produtos salvos
         List<Produto> produtosSalvos = meuDAO.listarTodos();
 
-        // 3. Imprimir os resultados no console
-        System.out.println("--- PRODUTOS ENCONTRADOS NA BASE DE DADOS ---");
+        // 3. Converter a nossa "List" normal numa "ObservableList"
+        // (A TableView só "enxerga" ObservableLists)
+        ObservableList<Produto> listaObservavel = FXCollections.observableArrayList(produtosSalvos);
 
-        // 4. Fazer um loop pela lista e imprimir cada produto
-        for (Produto p : produtosSalvos) {
-            System.out.println(p);
-        }
+        // 4. Dizer à tabela para usar esta lista
+        tabelaProdutos.setItems(listaObservavel);
+
+        System.out.println("Tabela carregada com " + listaObservavel.size() + " itens.");
     }
 
 
@@ -85,6 +119,9 @@ public class TelaPrincipalController {
 
             // 6. Limpar o campo de texto para o próximo produto
             campoNomeProduto.clear();
+
+            // Depois de salvar, mande a tabela recarregar!
+            carregarProdutosNaTabela();
         } catch (Exception e) {
             // Se algo der errado (ex: falha no banco), avisamos o utilizador
             labelDeStatus.setText("Erro ao salvar o produto!");
