@@ -18,6 +18,8 @@ import javafx.beans.property.SimpleIntegerProperty; // Para configurar a coluna 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javafx.scene.control.TableRow;
+
 public class TelaPrincipalController {
 
     @FXML
@@ -93,6 +95,36 @@ public class TelaPrincipalController {
                 }
             }
         });
+
+        // Lógica para colorir as linhas da tabela
+        tabelaProdutos.setRowFactory(tv -> new TableRow<Produto>(){
+
+            @Override
+            protected void updateItem(Produto item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null || empty) {
+                    setStyle("");
+                } else {
+
+                    LocalDate hoje = LocalDate.now();
+
+                    LocalDate dataValidade = item.getDataValidade();
+                    //Lógica das cores
+                    if (dataValidade.isBefore(hoje)) {
+                        // Vencido
+                        setStyle("-fx-background-color: #ffcccc;");
+                    } else if (dataValidade.isBefore(hoje.plusDays(7))) {
+                        // Próximo de se vencer
+                        setStyle("-fx-background-color: #fffbB0;");
+                    } else {
+                        setStyle("");
+                    }
+                }
+            }
+        });
+
+
 
         // 5. Chamar o nosso novo método para carregar os dados
         carregarProdutosNaTabela();
