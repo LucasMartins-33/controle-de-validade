@@ -42,7 +42,7 @@ public class ProdutoDAO {
                 + ");";
 
         // O "try-with-resources" garante que a ligação à BD fecha sozinha
-        try (Connection conn = DriverManager.getConnection(url);
+        try (Connection conn = connect();
              Statement stmt = conn.createStatement()) {
 
             // Executa o comando SQL
@@ -58,7 +58,7 @@ public class ProdutoDAO {
         // O comando SQL para inserir dados. O "?" é um "espaço reservado".
         String sql = "INSERT INTO produtos(nome, codigoBarras, dataValidade) VALUES(?,?,?)";
 
-        try (Connection conn = DriverManager.getConnection(url);
+        try (Connection conn = connect();
              // O PreparedStatement é mais seguro para inserir dados
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -84,7 +84,7 @@ public class ProdutoDAO {
         // 2. Criamos uma lista vazia onde vamos colocar os produtos
         List<Produto> produtosEncontrados = new ArrayList<>();
 
-        try (Connection conn = DriverManager.getConnection(url);
+        try (Connection conn = connect();
              Statement stmt = conn.createStatement();
              // 3. O ResultSet é a "tabela de resultados" que a BD nos devolve
              ResultSet rs = stmt.executeQuery(sql)) {
