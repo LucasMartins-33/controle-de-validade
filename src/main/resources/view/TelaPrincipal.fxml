@@ -14,6 +14,7 @@
       <TextField fx:id="campoCodigoBarras" promptText="Código de Barras" />
       <DatePicker fx:id="campoDataValidade" promptText="Data de validade" />
       <Button layoutX="243.0" layoutY="187.0" mnemonicParsing="false" onAction="#botaoFoiClicado" text="Clique em mim!" />
+      <Button mnemonicParsing="false" onAction="#handleDeletarProduto" text="Deletar Produto Selecionado" />
       <Label fx:id="labelDeStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="213.0" />
       <TableView fx:id="tabelaProdutos" prefHeight="200.0" prefWidth="200.0">
         <columns>

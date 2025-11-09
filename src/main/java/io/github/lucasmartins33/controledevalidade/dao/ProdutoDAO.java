@@ -27,6 +27,10 @@ public class ProdutoDAO {
         criarTabelaSeNaoExistir();
     }
 
+    private Connection connect() throws SQLException {
+        return DriverManager.getConnection(url);
+    }
+
     // 3. Método para criar a tabela (só se ela não existir)
     private void criarTabelaSeNaoExistir() {
         // Este é o "mapa" da nossa tabela de produtos
@@ -107,6 +111,22 @@ public class ProdutoDAO {
 
         // 8. Devolvemos a lista completa (pode estar vazia se não houver produtos)
         return produtosEncontrados;
+    }
+
+    public void deletar(int id) {
+        String sql = "DELETE FROM produtos WHERE id = ?";
+
+        try (Connection conn = connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+
+            pstmt.executeUpdate();
+
+            System.out.println("Produto com ID " + id + "deletado.");
+        } catch (SQLException e) {
+            System.out.println("Erro ao deletar produto " + e.getMessage());
+        }
     }
 
 }
