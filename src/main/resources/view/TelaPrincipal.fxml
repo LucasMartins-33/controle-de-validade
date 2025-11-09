@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="15.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.lucasmartins33.controledevalidade.controller.TelaPrincipalController">
@@ -13,8 +14,14 @@
       <TextField fx:id="campoNomeProduto" layoutX="219.0" layoutY="149.0" />
       <TextField fx:id="campoCodigoBarras" promptText="Código de Barras" />
       <DatePicker fx:id="campoDataValidade" promptText="Data de validade" />
-      <Button layoutX="243.0" layoutY="187.0" mnemonicParsing="false" onAction="#botaoFoiClicado" text="Clique em mim!" />
-      <Button mnemonicParsing="false" onAction="#handleDeletarProduto" text="Deletar Produto Selecionado" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#handleSalvarProduto" text="Salvar" />
+            <Button fx:id="btnDeletar" mnemonicParsing="false" onAction="#handleDeletarProduto" text="Deletar Produto Selecionado" />
+            <Button fx:id="btnAtualizar" mnemonicParsing="false" onAction="#handleAtualizarProduto" text="Atualizar Produto" />
+            <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#handleLimparFormulario" text="Limpar Formulário" />
+         </children>
+      </HBox>
       <Label fx:id="labelDeStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="213.0" />
       <TableView fx:id="tabelaProdutos" prefHeight="200.0" prefWidth="200.0">
         <columns>
