@@ -158,20 +158,6 @@ public class TelaPrincipalController {
      */
     @FXML
     private void handleSalvarProduto(ActionEvent event) {
-        // Esta é a sua lógica!
-        //System.out.println("FUNCIONOU! O FXML se conectou ao Controller!");
-
-        // Aparecendo na interface
-        //labelDeStatus.setText("FUNCIONOU! O FXML se conectou ao Controller!");
-
-        // 1. LER o texto do campo de entrada
-        // Usamos o método .getText() para pegar o que o usuário digitou
-        //String textoDigitado = campoNomeProduto.getText();
-
-        // 2. ATUALIZAR o label com esse texto
-        // Nós vamos construir uma nova frase
-        //labelDeStatus.setText("Você digitou: " + textoDigitado);
-
         try {
             // 1. Pegar o texto da tela
             String nomeDoProduto = campoNomeProduto.getText();
