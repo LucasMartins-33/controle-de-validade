@@ -18,8 +18,6 @@
          <children>
             <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#handleSalvarProduto" text="Salvar" />
             <Button fx:id="btnDeletar" mnemonicParsing="false" onAction="#handleDeletarProduto" text="Deletar Produto Selecionado" />
-            <Button fx:id="btnAtualizar" mnemonicParsing="false" onAction="#handleAtualizarProduto" text="Atualizar Produto" />
-            <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#handleLimparFormulario" text="Limpar Formulário" />
          </children>
       </HBox>
       <Label fx:id="labelDeStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="213.0" />

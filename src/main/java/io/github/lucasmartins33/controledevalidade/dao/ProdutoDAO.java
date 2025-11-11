@@ -128,25 +128,4 @@ public class ProdutoDAO {
             System.out.println("Erro ao deletar produto " + e.getMessage());
         }
     }
-
-    public void update(Produto produto) {
-
-        String sql = "UPDATE produtos SET nome = ?, codigoBarras = ?, dataVaalidade = ? WHERE id =?";
-
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            // Define o parâmetro de ordem do SQL
-            pstmt.setString(1, produto.getNome());
-            pstmt.setString(2, produto.getCodigoBarras());
-            pstmt.setString(3, produto.getDataValidade().toString());
-            pstmt.setInt(4, produto.getId());
-            pstmt.executeUpdate();
-
-            System.out.println("Produto com ID " + produto.getId() + " atualizar.");
-        } catch (SQLException e) {
-            System.out.println("Erro ao atualizar produtos " + e.getMessage());
-        }
-    }
-
 }

@@ -157,7 +157,7 @@ public class TelaPrincipalController {
      * igual ao que você digitou no 'On Action' do Scene Builder.
      */
     @FXML
-    private void botaoFoiClicado(ActionEvent event) {
+    private void handleSalvarProduto(ActionEvent event) {
         // Esta é a sua lógica!
         //System.out.println("FUNCIONOU! O FXML se conectou ao Controller!");
 
@@ -208,6 +208,33 @@ public class TelaPrincipalController {
             // Se algo der errado (ex: falha no banco), avisamos o utilizador
             labelDeStatus.setText("Erro ao salvar o produto!");
             e.printStackTrace(); // Mostra o erro no console para nós
+        }
+    }
+
+    public  void handleDeletarProduto(ActionEvent event) {
+
+        // 1. Descobre qual produto foi selecionado
+        Produto produtoSelecionado = tabelaProdutos.getSelectionModel().getSelectedItem();
+
+        // 2. Verifica se o produto foi realmente selecionado
+        if (produtoSelecionado == null) {
+            labelDeStatus.setText("Erro: Por favor, selecione um produto da tabela para deletar.");
+            return;
+        }
+        try {
+            // 3. Pegando o ID do produto
+            int idParaDeletar = produtoSelecionado.getId();
+
+            // 4. Cria um DAO e manda deletar o produto
+            ProdutoDAO meuDAO = new ProdutoDAO();
+            meuDAO.deletar(idParaDeletar);
+
+            labelDeStatus.setText("Produto " + produtoSelecionado.getNome() + " deletado com sucesso!");
+
+            carregarProdutosNaTabela();
+        } catch (Exception e) {
+            labelDeStatus.setText("Erro ao deletar produto.");
+            e.printStackTrace();
         }
     }
 
