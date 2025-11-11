@@ -1,6 +1,5 @@
 package io.github.lucasmartins33.controledevalidade.model;
 import java.time.LocalDate;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 

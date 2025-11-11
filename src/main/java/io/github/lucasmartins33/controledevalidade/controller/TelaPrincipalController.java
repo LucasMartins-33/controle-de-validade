@@ -3,23 +3,16 @@ package io.github.lucasmartins33.controledevalidade.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import io.github.lucasmartins33.controledevalidade.model.Produto;
 import io.github.lucasmartins33.controledevalidade.dao.ProdutoDAO;
-
 import java.time.LocalDate;
 import java.util.List;
-
 import javafx.collections.ObservableList; // Para a lista da tabela
 import javafx.collections.FXCollections; // Para criar a ObservableList
 import javafx.beans.property.SimpleStringProperty; // Para configurar as colunas
 import javafx.beans.property.SimpleIntegerProperty; // Para configurar a coluna de ID
-
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import javafx.scene.control.TableRow;
-
 public class TelaPrincipalController {
 
     @FXML
@@ -123,9 +116,6 @@ public class TelaPrincipalController {
                 }
             }
         });
-
-
-
         // 5. Chamar o nosso novo método para carregar os dados
         carregarProdutosNaTabela();
     }
@@ -148,8 +138,6 @@ public class TelaPrincipalController {
 
         System.out.println("Tabela carregada com " + listaObservavel.size() + " itens.");
     }
-
-
     /**
      * Esta anotação @FXML é o que permite que o FXML
      * encontre este método, mesmo ele sendo privado.
