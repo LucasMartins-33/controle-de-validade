@@ -40,17 +40,17 @@ Para executar este projeto localmente, você precisará ter o [JDK (Java Develop
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git](https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git)
-    cd SEU-REPOSITORIO
+    git clone https://github.com/LucasMartins-33/controle-de-validade.git
+    cd controle-de-validade
     ```
 
-2.  **Limpe e Instale as Dependências:**
+3.  **Limpe e Instale as Dependências:**
     (Isto irá "limpar" builds antigos e descarregar todas as bibliotecas necessárias, como JavaFX e SQLite)
     ```bash
     mvn clean install
     ```
 
-3.  **Execute a Aplicação:**
+4.  **Execute a Aplicação:**
     (Este comando utiliza o plugin do JavaFX que configurámos no `pom.xml` para iniciar a aplicação corretamente)
     ```bash
     mvn javafx:run
