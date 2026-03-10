@@ -42,6 +42,12 @@ public class TelaPrincipalController {
     @FXML
     private TableColumn<Produto, LocalDate> colunaDataValidade;
 
+    @FXML
+    private TableColumn<Produto, Integer> colunaQuantidade;
+
+    @FXML
+    private Spinner<Integer> campoQuantidade;
+
     /**
      * Este é um método especial do JavaFX.
      * Ele é chamado AUTOMATICAMENTE, uma única vez,
@@ -88,6 +94,20 @@ public class TelaPrincipalController {
                 }
             }
         });
+
+        // 5. Configurar a Coluna Quantidade
+        // Conecta a coluna da tabela ao novo atributo 'quantidade' do seu modelo Produto.
+        colunaQuantidade.setCellValueFactory(cellData ->
+                new SimpleIntegerProperty(cellData.getValue().getQuantidade()).asObject()
+        );
+
+        // 6. Configurar o Spinner (O seletor de números):
+        // Define os limites dos valores mínimos, máximo e inicial.
+        SpinnerValueFactory<Integer> valueFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 1);
+        campoQuantidade.setValueFactory(valueFactory);
+        campoQuantidade.setEditable(true); // permite que o usuário também digite o número.
+
 
         // Lógica para colorir as linhas da tabela
         tabelaProdutos.setRowFactory(tv -> new TableRow<Produto>(){
@@ -151,6 +171,7 @@ public class TelaPrincipalController {
             String nomeDoProduto = campoNomeProduto.getText();
             String codigoBarras = campoCodigoBarras.getText();
             LocalDate dataValidade = campoDataValidade.getValue();
+            Integer quantidade = campoQuantidade.getValue();
 
             // Não deixamos salvar se os campos principais estiverem vazios
             if (nomeDoProduto.isEmpty() || dataValidade == null) {
@@ -163,6 +184,7 @@ public class TelaPrincipalController {
             produtoParaSalvar.setNome(nomeDoProduto);
             produtoParaSalvar.setCodigoBarras(codigoBarras);
             produtoParaSalvar.setDataValidade(dataValidade);
+            produtoParaSalvar.setQuantidade(quantidade);
 
             // 3. Criar um "Mensageiro" (DAO)
             ProdutoDAO meuDAO = new ProdutoDAO();
@@ -175,6 +197,10 @@ public class TelaPrincipalController {
 
             // 6. Limpar o campo de texto para o próximo produto
             campoNomeProduto.clear();
+            campoCodigoBarras.clear();
+            campoDataValidade.setValue(null);
+            campoQuantidade.getValueFactory().setValue(1);
+
 
             // Depois de salvar, mande a tabela recarregar!
             carregarProdutosNaTabela();
@@ -211,5 +237,4 @@ public class TelaPrincipalController {
             e.printStackTrace();
         }
     }
-
 }

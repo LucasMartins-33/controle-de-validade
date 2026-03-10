@@ -9,16 +9,18 @@ public class Produto {
     private String nome;
     private String codigoBarras;
     private LocalDate dataValidade;
+    private int quantidade;
 
     public Produto() {
 
     }
 
-    public Produto(int id,String nome, String codigoBarras, LocalDate dataValidade) {
+    public Produto(int id,String nome, String codigoBarras, LocalDate dataValidade, int quantidade) {
         this.id = id;
         this.nome = nome;
         this.codigoBarras = codigoBarras;
         this.dataValidade = dataValidade;
+        this.quantidade = quantidade;
     }
 
     public int getId() {
@@ -53,6 +55,10 @@ public class Produto {
         this.dataValidade = dataValidade;
     }
 
+    public int getQuantidade() { return quantidade;}
+
+    public void setQuantidade(int quantidade) { this.quantidade = quantidade;}
+
     public boolean verificadorValidade(){
         LocalDate dataAtual = LocalDate.now();
 
@@ -67,8 +73,9 @@ public class Produto {
     public String toString() {
         return "Produto [ID: " + id +
                 ", Nome: " + nome +
-                "Código" + codigoBarras +
-                "Validade" + dataValidade +
+                ", Código" + codigoBarras +
+                ", Validade" + dataValidade +
+                ", Quantidade" + quantidade +
                 "]";
     }
 }

@@ -38,7 +38,8 @@ public class ProdutoDAO {
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT," // Um ID automático
                 + "nome TEXT NOT NULL," // O nome do produto
                 + "codigoBarras TEXT," // Coluna para o código de barras
-                + "dataValidade TEXT NOT NULL" // Coluna para a data (como texto)
+                + "dataValidade TEXT NOT NULL," // Coluna para a data (como texto)
+                + "quantidade INTEGER DEFAULT 0" // Coluna para adicionar quantidade
                 + ");";
 
         // O "try-with-resources" garante que a ligação à BD fecha sozinha
@@ -56,7 +57,7 @@ public class ProdutoDAO {
     // 4. O método para SALVAR um produto!
     public void salvar(Produto produto) {
         // O comando SQL para inserir dados. O "?" é um "espaço reservado".
-        String sql = "INSERT INTO produtos(nome, codigoBarras, dataValidade) VALUES(?,?,?)";
+        String sql = "INSERT INTO produtos(nome, codigoBarras, dataValidade, quantidade) VALUES(?,?,?,?)";
 
         try (Connection conn = connect();
              // O PreparedStatement é mais seguro para inserir dados
@@ -66,6 +67,7 @@ public class ProdutoDAO {
             pstmt.setString(1, produto.getNome());
             pstmt.setString(2, produto.getCodigoBarras());
             pstmt.setString(3, produto.getDataValidade().toString());
+            pstmt.setInt(4, produto.getQuantidade());
 
             // Executa a atualização
             pstmt.executeUpdate();
@@ -79,7 +81,7 @@ public class ProdutoDAO {
     // 5. O método para ler todos os produtos!
     public  List<Produto> listarTodos() {
         // 1. O comando SQL para selecionar tudo
-        String sql = "SELECT id, nome, codigoBarras, dataValidade FROM produtos";
+        String sql = "SELECT id, nome, codigoBarras, dataValidade, quantidade FROM produtos";
 
         // 2. Criamos uma lista vazia onde vamos colocar os produtos
         List<Produto> produtosEncontrados = new ArrayList<>();
@@ -100,6 +102,7 @@ public class ProdutoDAO {
                 produto.setNome(rs.getString("nome"));
                 produto.setCodigoBarras(rs.getString("codigoBarras"));
                 produto.setDataValidade(LocalDate.parse(rs.getString("dataValidade")));
+                produto.setQuantidade(rs.getInt("quantidade"));
 
                 // 7. Adicionamos o produto preenchido à nossa lista
                 produtosEncontrados.add(produto);
